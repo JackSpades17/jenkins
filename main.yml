@@ -2,7 +2,7 @@
 - name: ping servers
   hosts: main_group
   tasks:
-    - name: Ping server
+    - name: Ping servers
       ping:
   tags: [configure, deploy, check]
 
