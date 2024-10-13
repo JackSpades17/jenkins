@@ -1,0 +1,81 @@
+---
+- name: ping servers
+  hosts: main_group
+  tasks:
+    - name: Ping server
+      ping:
+  tags: [configure, deploy]
+
+- name: git
+  hosts: main_group
+  tasks:
+    - name: "Git clone repo"
+      git:
+        repo: https://github.com/JackSpades17/test_service
+        dest: ~/test_service
+        clone: yes
+        update: yes
+  tags: [configure, deploy]
+
+- name: docker-container app
+  hosts: main_group
+  tasks:
+    - name: update and upgrade apt
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+
+    - name: "Check/Install docker"
+      apt: 
+        name: "docker.io"
+        state: present
+        update_cache: true
+      become: true
+
+    # - name: "Usermod USER"
+    #   become: true
+    #   user: 
+    #     name: "{{ansible_user}}"
+    #     group: docker
+    #     append: yes
+
+    - name: "Start docker service"
+      service:
+        name: "docker"
+        state: started
+      become: yes
+  tags: configure
+
+- name: Deploy app
+  hosts: main_group
+  tasks:
+    - name: "Docker Stop"
+      shell: 
+        cmd: "sudo docker stop test"
+      ignore_errors: yes
+    - name: "Docker Container Delete"
+      shell: 
+        cmd: "sudo docker rm test"
+      ignore_errors: yes
+    - name: "Docker Image Delete"
+      shell: 
+        cmd: "sudo docker image rm test_zone"
+      ignore_errors: yes
+  tags: deploy
+
+- name: Build/Start app
+  hosts: main_group
+  tasks:
+    - name: "Docker Build"
+      shell: 
+        cmd: "sudo docker build -f ~/test_service/Dockerfile -t test_zone ."
+    - name: "Docker Run"
+      shell: 
+        cmd: "sudo docker run -d --name test -p 8081:1717 test_zone"
+  tags: [configure, deploy]
+
+
+    
+  
+
