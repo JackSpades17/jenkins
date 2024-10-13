@@ -4,7 +4,7 @@
   tasks:
     - name: Ping server
       ping:
-  tags: [configure, deploy]
+  tags: [configure, deploy, check]
 
 - name: git
   hosts: main_group
