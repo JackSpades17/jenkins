@@ -17,7 +17,7 @@
         update: yes
   tags: [configure, deploy]
 
-- name: docker-container app
+- name: Install Docker
   hosts: main_group
   tasks:
     - name: update and upgrade apt
@@ -29,6 +29,13 @@
     - name: "Check/Install docker"
       apt: 
         name: "docker.io"
+        state: present
+        update_cache: true
+      become: true
+
+    - name: "Check/Install docker-compose"
+      apt: 
+        name: "docker-compose"
         state: present
         update_cache: true
       become: true
@@ -47,33 +54,36 @@
       become: yes
   tags: configure
 
-- name: Deploy app
+- name: Restart app after deploy
   hosts: main_group
   tasks:
     - name: "Docker Stop"
       shell: 
-        cmd: "sudo docker stop test"
+        cmd: "sudo docker-compose stop"
+        chdir: "~/test_service"
       ignore_errors: yes
-    - name: "Docker Container Delete"
+    - name: "Docker Start"
       shell: 
-        cmd: "sudo docker rm test"
-      ignore_errors: yes
-    - name: "Docker Image Delete"
-      shell: 
-        cmd: "sudo docker image rm test_zone"
-      ignore_errors: yes
+        cmd: "sudo docker-compose start"
+        chdir: "~/test_service"
   tags: deploy
 
-- name: Build/Start app
+- name: Build app
   hosts: main_group
   tasks:
     - name: "Docker Build"
       shell: 
         cmd: "sudo docker build -f ~/test_service/Dockerfile -t test_zone ."
-    - name: "Docker Run"
+  tags: configure
+
+- name: Start app
+  hosts: main_group
+  tasks:
+    - name: "Start app in Docker"
       shell: 
-        cmd: "sudo docker run -d --name test -p 8081:1717 test_zone"
-  tags: [configure, deploy]
+        cmd: "sudo docker-compose up -d"
+        chdir: "~/test_service"
+  tags: configure
 
 
     
