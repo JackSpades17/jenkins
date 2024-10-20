@@ -73,7 +73,8 @@
   tasks:
     - name: "Docker Build"
       shell: 
-        cmd: "sudo docker build -f ~/test_service/Dockerfile -t test_zone ."
+        cmd: "sudo docker build -f Dockerfile -t test_zone ."
+        chdir: "~/test_service"
   tags: configure
 
 - name: Start app
