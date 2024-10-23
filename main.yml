@@ -1,18 +1,18 @@
 ---
-- name: ping servers
+- name: Ping Servers
   hosts: main_group
   tasks:
     - name: Ping servers
       ping:
   tags: [configure, deploy, check]
 
-- name: git
+- name: GIT
   hosts: main_group
   tasks:
     - name: "Git clone repo"
       git:
         repo: https://github.com/JackSpades17/test_service
-        dest: ~/test_service
+        dest: {{ path_service }}
         clone: yes
         update: yes
   tags: [configure, deploy]
@@ -60,12 +60,12 @@
     - name: "Docker Stop"
       shell: 
         cmd: "sudo docker-compose stop"
-        chdir: "~/test_service"
+        chdir: {{ path_service }}
       ignore_errors: yes
     - name: "Docker Start"
       shell: 
         cmd: "sudo docker-compose start"
-        chdir: "~/test_service"
+        chdir: {{ path_service }}
   tags: deploy
 
 - name: Build app
@@ -74,7 +74,7 @@
     - name: "Docker Build"
       shell: 
         cmd: "sudo docker build -f Dockerfile -t test_zone ."
-        chdir: "~/test_service"
+        chdir: {{ path_service }}
   tags: configure
 
 - name: Start app
@@ -83,7 +83,7 @@
     - name: "Start app in Docker"
       shell: 
         cmd: "sudo docker-compose up -d"
-        chdir: "~/test_service"
+        chdir: {{ path_service }}
   tags: configure
 
 
