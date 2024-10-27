@@ -21,7 +21,6 @@
   hosts: main_group
   tasks:
     - name: update and upgrade apt
-      become: true
       apt:
         upgrade: yes
         update_cache: yes
@@ -31,27 +30,18 @@
         name: "docker.io"
         state: present
         update_cache: true
-      become: true
 
     - name: "Check/Install docker-compose"
       apt: 
         name: "docker-compose"
         state: present
         update_cache: true
-      become: true
-
-    # - name: "Usermod USER"
-    #   become: true
-    #   user: 
-    #     name: "{{ansible_user}}"
-    #     group: docker
-    #     append: yes
 
     - name: "Start docker service"
       service:
         name: "docker"
         state: started
-      become: yes
+    become: true
   tags: configure
 
 - name: Restart app after deploy
@@ -59,13 +49,14 @@
   tasks:
     - name: "Docker Stop"
       shell: 
-        cmd: "sudo docker-compose stop"
+        cmd: "docker-compose stop"
         chdir: "{{ path_service }}"
       ignore_errors: yes
     - name: "Docker Start"
       shell: 
-        cmd: "sudo docker-compose start"
+        cmd: "docker-compose start"
         chdir: "{{ path_service }}"
+    become: true
   tags: deploy
 
 - name: Build app
@@ -73,8 +64,9 @@
   tasks:
     - name: "Docker Build"
       shell: 
-        cmd: "sudo docker build -f Dockerfile -t test_zone ."
+        cmd: "docker build -f Dockerfile -t test_zone ."
         chdir: "{{ path_service }}"
+      become: true
   tags: configure
 
 - name: Start app
@@ -82,8 +74,9 @@
   tasks:
     - name: "Start app in Docker"
       shell: 
-        cmd: "sudo docker-compose up -d"
+        cmd: "docker-compose up -d"
         chdir: "{{ path_service }}"
+      become: true
   tags: configure
 
 
