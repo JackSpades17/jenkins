@@ -41,7 +41,7 @@
       service:
         name: "docker"
         state: started
-    become: true
+  become: true
   tags: configure
 
 - name: Restart app after deploy
@@ -56,7 +56,7 @@
       shell: 
         cmd: "docker-compose start"
         chdir: "{{ path_service }}"
-    become: true
+  become: true
   tags: deploy
 
 - name: Build app
