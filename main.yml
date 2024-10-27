@@ -68,7 +68,7 @@
         chdir: "{{ path_service }}"
   tags: deploy
 
-- name: Build apps
+- name: Build app
   hosts: main_group
   tasks:
     - name: "Docker Build"
