@@ -12,7 +12,7 @@
     - name: "Git clone repo"
       git:
         repo: https://github.com/JackSpades17/test_service
-        dest: {{ path_service }}
+        dest: "{{ path_service }}"
         clone: yes
         update: yes
   tags: [configure, deploy]
@@ -60,12 +60,12 @@
     - name: "Docker Stop"
       shell: 
         cmd: "sudo docker-compose stop"
-        chdir: {{ path_service }}
+        chdir: "{{ path_service }}"
       ignore_errors: yes
     - name: "Docker Start"
       shell: 
         cmd: "sudo docker-compose start"
-        chdir: {{ path_service }}
+        chdir: "{{ path_service }}"
   tags: deploy
 
 - name: Build app
@@ -74,7 +74,7 @@
     - name: "Docker Build"
       shell: 
         cmd: "sudo docker build -f Dockerfile -t test_zone ."
-        chdir: {{ path_service }}
+        chdir: "{{ path_service }}"
   tags: configure
 
 - name: Start app
@@ -83,7 +83,7 @@
     - name: "Start app in Docker"
       shell: 
         cmd: "sudo docker-compose up -d"
-        chdir: {{ path_service }}
+        chdir: "{{ path_service }}"
   tags: configure
 
 
