@@ -49,14 +49,13 @@
   tasks:
     - name: "Docker Stop"
       shell: 
-        cmd: "docker-compose stop"
+        cmd: "sudo docker-compose stop"
         chdir: "{{ path_service }}"
       ignore_errors: yes
     - name: "Docker Start"
       shell: 
-        cmd: "docker-compose start"
+        cmd: "sudo docker-compose start"
         chdir: "{{ path_service }}"
-  become: true
   tags: deploy
 
 - name: Build app
@@ -64,9 +63,8 @@
   tasks:
     - name: "Docker Build"
       shell: 
-        cmd: "docker build -f Dockerfile -t test_zone ."
+        cmd: "sudo docker build -f Dockerfile -t test_zone ."
         chdir: "{{ path_service }}"
-      become: true
   tags: configure
 
 - name: Start app
@@ -74,9 +72,8 @@
   tasks:
     - name: "Start app in Docker"
       shell: 
-        cmd: "docker-compose up -d"
+        cmd: "sudo docker-compose up -d"
         chdir: "{{ path_service }}"
-      become: true
   tags: configure
 
 
