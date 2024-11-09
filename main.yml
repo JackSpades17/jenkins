@@ -61,20 +61,29 @@
 - name: Build app
   hosts: main_group
   tasks:
-    - name: "Docker Build"
-      shell: 
-        cmd: "sudo docker build -f Dockerfile -t test_zone ."
-        chdir: "{{ path_service }}"
-  tags: configure
-
-- name: Start app
-  hosts: main_group
-  tasks:
-    - name: "Start app in Docker"
+    - name: "Docker Build And Start App"
       shell: 
         cmd: "sudo docker-compose up -d"
         chdir: "{{ path_service }}"
   tags: configure
+
+# - name: Build app
+#   hosts: main_group
+#   tasks:
+#     - name: "Docker Build"
+#       shell: 
+#         cmd: "sudo docker build -f Dockerfile -t test_zone ."
+#         chdir: "{{ path_service }}"
+#   tags: configure
+
+# - name: Start app
+#   hosts: main_group
+#   tasks:
+#     - name: "Start app in Docker"
+#       shell: 
+#         cmd: "sudo docker-compose up -d"
+#         chdir: "{{ path_service }}"
+#   tags: configure
 
 
     
