@@ -67,7 +67,7 @@
 - name: Restart Server
   hosts: main_group
   tasks:
-    - name: Ping servers
+    - name: Restart Server
       reboot:
       async: 120
       poll: 10
