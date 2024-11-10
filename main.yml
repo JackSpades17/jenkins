@@ -67,9 +67,10 @@
 - name: Restart Server
   hosts: main_group
   tasks:
-    reboot:
-    async: 120
-    poll: 10
+    - name: Ping servers
+      reboot:
+      async: 120
+      poll: 10
   become: true
   tags: first_install
 
