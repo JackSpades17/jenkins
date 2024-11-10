@@ -1,1 +1,1 @@
-path_service: ~/test_service
+path_service: /home/{{ ansible_user }}/test_service

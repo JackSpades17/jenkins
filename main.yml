@@ -4,7 +4,21 @@
   tasks:
     - name: Ping servers
       ping:
-  tags: [configure, deploy, check]
+  tags: [configure, deploy, check, first_install]
+
+########################
+
+- name: Test Async Tasks
+  hosts: main_group
+  tasks:
+    - name: Sleep 15sec
+      shell: 
+        cmd: sleep 15
+      async: 30
+      poll: 5
+  tags: [check]
+
+########################
 
 - name: GIT
   hosts: main_group
@@ -15,7 +29,7 @@
         dest: "{{ path_service }}"
         clone: yes
         update: yes
-  tags: [configure, deploy]
+  tags: [configure, deploy, first_install]
 
 - name: Install Docker
   hosts: main_group
@@ -41,20 +55,35 @@
       service:
         name: "docker"
         state: started
+
+    - name: "Change Role User For Docker"
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
   become: true
-  tags: configure
+  tags: first_install
+
+- name: Restart Server
+  hosts: main_group
+  tasks:
+    reboot:
+    async: 120
+    poll: 10
+  become: true
+  tags: first_install
 
 - name: Restart app after deploy
   hosts: main_group
   tasks:
     - name: "Docker Stop"
       shell: 
-        cmd: "sudo docker-compose stop"
+        cmd: "docker-compose stop"
         chdir: "{{ path_service }}"
       ignore_errors: yes
     - name: "Docker Start"
       shell: 
-        cmd: "sudo docker-compose start"
+        cmd: "docker-compose start"
         chdir: "{{ path_service }}"
   tags: deploy
 
@@ -63,9 +92,9 @@
   tasks:
     - name: "Docker Build And Start App"
       shell: 
-        cmd: "sudo docker-compose up -d"
+        cmd: "docker-compose up -d"
         chdir: "{{ path_service }}"
-  tags: configure
+  tags: [configure, first_install]
 
 # - name: Build app
 #   hosts: main_group
