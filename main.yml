@@ -70,7 +70,7 @@
     - name: Restart Server
       reboot:
         reboot_timeout: 120
-        msg: "Rebooting machine"
+        msg: "Rebooting machines"
   become: true
   tags: first_install
 
