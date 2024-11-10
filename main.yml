@@ -69,8 +69,8 @@
   tasks:
     - name: Restart Server
       reboot:
-      async: 120
-      poll: 10
+        reboot_timeout: 120
+        msg: "Rebooting machine"
   become: true
   tags: first_install
 
