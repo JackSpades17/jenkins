@@ -20,8 +20,8 @@
       become_user: postgres
       postgresql_db:
         name: postgres
-        state: dump
-        target:  /var/lib/postgresql/backup2
+        state: restore
+        target:  /var/lib/postgresql/backup
 
 # - name: Ping Servers
 #   hosts: service_with_postrges
