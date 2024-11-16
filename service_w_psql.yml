@@ -23,8 +23,6 @@
       shell:
         cmd: psql postgres < backup
         chdir: /var/lib/postgresql
-      user: postgres
-
 
 # - name: Ping Servers
 #   hosts: service_with_postrges
