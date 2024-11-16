@@ -19,8 +19,7 @@
       shell:
         cmd: psql postgres < backup
         chdir: /var/lib/postgresql
-      become: true
-      become_user: postgres
+      user: postgres
 
 
 # - name: Ping Servers
