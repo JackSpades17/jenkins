@@ -16,11 +16,11 @@
         mode: '0744'
       become: true
     - name: "PSQL Up DB"
-      become: yes
+      command: psql postgres < /var/lib/postgresql/backup
+      become: true
       become_user: postgres
-      shell:
-        cmd: psql postgres < backup
-        chdir: /var/lib/postgresql
+      become_method: sudo
+      become_flags: '-s /bin/bash'
 
 # - name: Ping Servers
 #   hosts: service_with_postrges
