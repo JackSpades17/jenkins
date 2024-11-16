@@ -18,7 +18,8 @@
 
     - name: "PSQL Up DB"
       become_user: postgres
-      shell: "pg_dump postgres > backup2"
+      command: 
+        cmd: "pg_dump postgres > backup2"
       # postgresql_db:
       #   name: postgres
       #   state: restore
