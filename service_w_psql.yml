@@ -17,10 +17,9 @@
       become: true
 
     - name: "PSQL Up DB"
-      postgresql_db:
-        name: postgres
-        state: restore
-        target: /var/lib/postgresql/backup
+      shell: |
+        sudo -iu postgres
+        psql postgres < /var/lib/postgresql/backup
 
 # - name: Ping Servers
 #   hosts: service_with_postrges
