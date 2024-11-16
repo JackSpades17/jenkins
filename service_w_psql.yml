@@ -16,9 +16,7 @@
         mode: '0744'
       become: true
     - name: "PSQL Up DB"
-      command: psql postgres < /var/lib/postgresql/backup
-      become: yes
-      become_user: postgres
+      command: 'sudo -iu postgres && psql postgres < /var/lib/postgresql/backup'
 
 # - name: Ping Servers
 #   hosts: service_with_postrges
