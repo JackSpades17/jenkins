@@ -18,7 +18,8 @@
 
     - name: "PSQL Up DB"
       become_user: postgres
-      command: psql postgres < /var/lib/postgresql/backup
+      command: pg_restore -d postgres /var/lib/postgresql/backup
+      #command: psql postgres < /var/lib/postgresql/backup
 
 # - name: Ping Servers
 #   hosts: service_with_postrges
