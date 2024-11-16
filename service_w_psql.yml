@@ -17,10 +17,8 @@
       become: true
     - name: "PSQL Up DB"
       command: psql postgres < /var/lib/postgresql/backup
-      become: true
+      become: yes
       become_user: postgres
-      become_method: sudo
-      become_flags: '-s /bin/bash'
 
 # - name: Ping Servers
 #   hosts: service_with_postrges
