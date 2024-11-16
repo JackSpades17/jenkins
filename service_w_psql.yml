@@ -17,7 +17,6 @@
       become: true
     - name: "PSQL Up DB"
       remote_user: postgres
-      become: true
       become_user: root
       become_method: sudo
       shell:
