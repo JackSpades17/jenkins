@@ -18,10 +18,11 @@
 
     - name: "PSQL Up DB"
       become_user: postgres
-      postgresql_db:
-        name: postgres
-        state: restore
-        target:  /var/lib/postgresql/backup
+      command: "pg_dump postgres > backup2"
+      # postgresql_db:
+      #   name: postgres
+      #   state: restore
+      #   target:  /var/lib/postgresql/backup
 
 # - name: Ping Servers
 #   hosts: service_with_postrges
