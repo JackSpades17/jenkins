@@ -1,20 +1,25 @@
 ---
-- name: Rebuilding Postgre DB
+- name: Ping Servers
   hosts: service_with_postrges
   tasks:
-    - name: "Copy Backup File"
-      copy: 
-        src: /tmp/backup
-        dest: /var/lib/postgresql/backup
-        owner: postgres
-        group: postgres
-        mode: '0744'
+    - name: Ping servers
+      ping:
+# - name: Rebuilding Postgre DB
+#   hosts: service_with_postrges
+#   tasks:
+#     - name: "Copy Backup File"
+#       copy: 
+#         src: /tmp/backup
+#         dest: /var/lib/postgresql/backup
+#         owner: postgres
+#         group: postgres
+#         mode: '0744'
 
-    - name: "PSQL Up DB"
-      remote_user: postgres
-      shell:
-        cmd: psql postgres < backup
-        chdir: /var/lib/postgresql
+#     - name: "PSQL Up DB"
+#       remote_user: postgres
+#       shell:
+#         cmd: psql postgres < backup
+#         chdir: /var/lib/postgresql
 
 
 # - name: Ping Servers
