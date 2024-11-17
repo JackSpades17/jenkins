@@ -137,7 +137,8 @@
     - name: "Listen Addresses PSQL For App"
       postgresql_set:
         name: listen_addresses
-        reset: '*'
+        value: '*'
+        reset: true
       become: true
 
     - name: "Restart PSQL service"
