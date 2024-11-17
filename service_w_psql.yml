@@ -17,20 +17,20 @@
       become: true
 
     - name: "Grant User For Backup"
-      become_user: postgres
       postgresql_pg_hba:
         dest: /etc/postgresql/17/main/pg_hba.conf
         contype: local
         users: postgres
         databases: all
         method: trust
+      become: true
 
     - name: "Restart PSQL service"
       service:
         name: "postgresql"
         state: restarted
       become: true
-      
+
     - name: "PSQL Up DB"
       become_user: postgres
       postgresql_db:
