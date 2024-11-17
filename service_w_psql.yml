@@ -4,26 +4,24 @@
   tasks:
     - name: Ping servers
       ping:
-# - name: Rebuilding Postgre DB
-#   hosts: service_with_postrges
-#   tasks:
-#     - name: "Copy Backup File"
-#       copy: 
-#         src: /tmp/backup
-#         dest: /var/lib/postgresql/backup
-#         owner: postgres
-#         group: postgres
-#         mode: '0744'
-#       become: true
+- name: Rebuilding Postgre DB
+  hosts: service_with_postrges
+  tasks:
+    - name: "Copy Backup File"
+      copy: 
+        src: /var/lib/jenkins/backup
+        dest: /var/lib/postgresql/backup
+        owner: postgres
+        group: postgres
+        mode: '0744'
+      become: true
 
-#     - name: "PSQL Up DB"
-#       become_user: postgres
-#       command: 
-#         cmd: "pg_dump postgres"
-      # postgresql_db:
-      #   name: postgres
-      #   state: restore
-      #   target:  /var/lib/postgresql/backup
+    - name: "PSQL Up DB"
+      become_user: postgres
+      postgresql_db:
+        name: postgres
+        state: restore
+        target:  /var/lib/postgresql/backup
 
 # - name: Ping Servers
 #   hosts: service_with_postrges
@@ -31,37 +29,37 @@
 #     - name: Ping servers
 #       ping:
 
-- name: GIT
-  hosts: service_with_postrges
-  tasks:
-    - name: "Git clone repo"
-      git:
-        repo: https://github.com/JackSpades17/service_with_postgres
-        dest: "/home/{{ ansible_user }}/service_with_postgres"
-        clone: yes
-        update: yes
+# - name: GIT
+#   hosts: service_with_postrges
+#   tasks:
+#     - name: "Git clone repo"
+#       git:
+#         repo: https://github.com/JackSpades17/service_with_postgres
+#         dest: "/home/{{ ansible_user }}/service_with_postgres"
+#         clone: yes
+#         update: yes
 
-- name: Download Postgre
-  hosts: service_with_postrges
-  tasks:
-    - name: "Download Postgre N1"
-      shell: 
-        cmd: "wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -"
+# - name: Download Postgre
+#   hosts: service_with_postrges
+#   tasks:
+#     - name: "Download Postgre N1"
+#       shell: 
+#         cmd: "wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -"
 
-    - name: "Download Postgre N2"
-      shell: 
-        cmd: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+#     - name: "Download Postgre N2"
+#       shell: 
+#         cmd: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
 
-    - name: "Check/Install postgresql"
-      apt: 
-        name: "postgresql"
-        state: present
-        update_cache: true
-      become: true
+#     - name: "Check/Install postgresql"
+#       apt: 
+#         name: "postgresql"
+#         state: present
+#         update_cache: true
+#       become: true
 
-    - name: "Check/Install postgresql-contrib"
-      apt: 
-        name: "postgresql-contrib"
-        state: present
-        update_cache: true
-      become: true
+#     - name: "Check/Install postgresql-contrib"
+#       apt: 
+#         name: "postgresql-contrib"
+#         state: present
+#         update_cache: true
+#       become: true
