@@ -4,6 +4,42 @@
   tasks:
     - name: Ping servers
       ping:
+
+- name: GIT
+  hosts: service_with_postrges
+  tasks:
+    - name: "Git clone repo"
+      git:
+        repo: https://github.com/JackSpades17/service_with_postgres
+        dest: "/home/{{ ansible_user }}/service_with_postgres"
+        clone: yes
+        update: yes
+
+- name: Download Postgre
+  hosts: service_with_postrges
+  tasks:
+    - name: "Download Postgre N1"
+      shell: 
+        cmd: "wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -"
+
+    - name: "Download Postgre N2"
+      shell: 
+        cmd: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+
+    - name: "Check/Install postgresql"
+      apt: 
+        name: "postgresql"
+        state: present
+        update_cache: true
+      become: true
+
+    - name: "Check/Install postgresql-contrib"
+      apt: 
+        name: "postgresql-contrib"
+        state: present
+        update_cache: true
+      become: true
+
 - name: Rebuilding Postgre DB
   hosts: service_with_postrges
   tasks:
@@ -37,44 +73,18 @@
         name: postgres
         state: restore
         target:  /var/lib/postgresql/backup
+    
+    - name: "Grant User For Backup"
+      postgresql_pg_hba:
+        dest: /etc/postgresql/17/main/pg_hba.conf
+        contype: local
+        users: postgres
+        databases: all
+        method: peer
+      become: true
 
-# - name: Ping Servers
-#   hosts: service_with_postrges
-#   tasks:
-#     - name: Ping servers
-#       ping:
-
-# - name: GIT
-#   hosts: service_with_postrges
-#   tasks:
-#     - name: "Git clone repo"
-#       git:
-#         repo: https://github.com/JackSpades17/service_with_postgres
-#         dest: "/home/{{ ansible_user }}/service_with_postgres"
-#         clone: yes
-#         update: yes
-
-# - name: Download Postgre
-#   hosts: service_with_postrges
-#   tasks:
-#     - name: "Download Postgre N1"
-#       shell: 
-#         cmd: "wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -"
-
-#     - name: "Download Postgre N2"
-#       shell: 
-#         cmd: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
-
-#     - name: "Check/Install postgresql"
-#       apt: 
-#         name: "postgresql"
-#         state: present
-#         update_cache: true
-#       become: true
-
-#     - name: "Check/Install postgresql-contrib"
-#       apt: 
-#         name: "postgresql-contrib"
-#         state: present
-#         update_cache: true
-#       become: true
+    - name: "Restart PSQL service"
+      service:
+        name: "postgresql"
+        state: restarted
+      become: true
