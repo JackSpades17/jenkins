@@ -134,12 +134,18 @@
         method: scram-sha-256
       become: true
     
+    # - name: "Listen Addresses PSQL For App"
+    #   postgresql_set:
+    #     name: listen_addresses
+    #     value: '*'
+    #   become: true
     - name: "Listen Addresses PSQL For App"
-      postgresql_set:
-        name: listen_addresses
-        value: '*'
+      lineinfile:
+        dest: /etc/postgresql/17/main/postgresql.conf
+        regexp: "listen_addresses ="
+        line: "listen_addresses = '*'"
+        state: present
       become: true
-
     - name: "Restart PSQL service"
       service:
         name: "postgresql"
