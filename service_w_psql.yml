@@ -158,4 +158,4 @@
     - name: "Docker Build And Start App"
       shell: 
         cmd: "docker-compose up -d"
-        chdir: "/home/jackspades17/test_service"
+        chdir: "/home/jackspades17/service_with_postgres"
