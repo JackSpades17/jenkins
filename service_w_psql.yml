@@ -138,7 +138,6 @@
       postgresql_set:
         name: listen_addresses
         value: '*'
-        reset: true
       become: true
 
     - name: "Restart PSQL service"
