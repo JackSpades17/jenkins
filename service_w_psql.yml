@@ -15,71 +15,71 @@
         clone: yes
         update: yes
 
-# - name: Install Docker
-#   hosts: service_with_postrges
-#   tasks:
-#     - name: update and upgrade apt
-#       apt:
-#         upgrade: yes
-#         update_cache: yes
+- name: Install Docker
+  hosts: service_with_postrges
+  tasks:
+    - name: update and upgrade apt
+      apt:
+        upgrade: yes
+        update_cache: yes
 
-#     - name: "Check/Install docker"
-#       apt: 
-#         name: "docker.io"
-#         state: present
-#         update_cache: true
+    - name: "Check/Install docker"
+      apt: 
+        name: "docker.io"
+        state: present
+        update_cache: true
 
-#     - name: "Check/Install docker-compose"
-#       apt: 
-#         name: "docker-compose"
-#         state: present
-#         update_cache: true
+    - name: "Check/Install docker-compose"
+      apt: 
+        name: "docker-compose"
+        state: present
+        update_cache: true
 
-#     - name: "Start docker service"
-#       service:
-#         name: "docker"
-#         state: started
+    - name: "Start docker service"
+      service:
+        name: "docker"
+        state: started
 
-#     - name: "Change Role User For Docker"
-#       user:
-#         name: "{{ ansible_user }}"
-#         groups: docker
-#         append: yes
-#   become: true
+    - name: "Change Role User For Docker"
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+  become: true
 
-# - name: Restart Server
-#   hosts: service_with_postrges
-#   tasks:
-#     - name: Restart Server
-#       reboot:
-#         reboot_timeout: 120
-#         msg: "Rebooting machines"
-#   become: true
+- name: Restart Server
+  hosts: service_with_postrges
+  tasks:
+    - name: Restart Server
+      reboot:
+        reboot_timeout: 120
+        msg: "Rebooting machines"
+  become: true
 
-# - name: Download Postgre
-#   hosts: service_with_postrges
-#   tasks:
-#     - name: "Download Postgre N1"
-#       shell: 
-#         cmd: "wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -"
+- name: Download Postgre
+  hosts: service_with_postrges
+  tasks:
+    - name: "Download Postgre N1"
+      shell: 
+        cmd: "wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -"
 
-#     - name: "Download Postgre N2"
-#       shell: 
-#         cmd: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+    - name: "Download Postgre N2"
+      shell: 
+        cmd: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
 
-#     - name: "Check/Install postgresql"
-#       apt: 
-#         name: "postgresql"
-#         state: present
-#         update_cache: true
-#       become: true
+    - name: "Check/Install postgresql"
+      apt: 
+        name: "postgresql"
+        state: present
+        update_cache: true
+      become: true
 
-#     - name: "Check/Install postgresql-contrib"
-#       apt: 
-#         name: "postgresql-contrib"
-#         state: present
-#         update_cache: true
-#       become: true
+    - name: "Check/Install postgresql-contrib"
+      apt: 
+        name: "postgresql-contrib"
+        state: present
+        update_cache: true
+      become: true
 
 - name: Rebuilding Postgre DB
   hosts: service_with_postrges
@@ -134,11 +134,6 @@
         method: scram-sha-256
       become: true
     
-    # - name: "Listen Addresses PSQL For App"
-    #   postgresql_set:
-    #     name: listen_addresses
-    #     value: '*'
-    #   become: true
     - name: "Listen Addresses PSQL For App"
       lineinfile:
         dest: /etc/postgresql/17/main/postgresql.conf
@@ -146,6 +141,7 @@
         line: "listen_addresses = '*'"
         state: present
       become: true
+      
     - name: "Restart PSQL service"
       service:
         name: "postgresql"
