@@ -101,6 +101,15 @@
         databases: all
         method: trust
       become: true
+    
+    - name: "Create User For Test App"
+      become_user: postgres
+      postgresql_user:
+        db: postgres
+        users: test_user
+        password: '1111'
+        priv: "CONNECT/count_update:ALL"
+        state: present
 
     - name: "Restart PSQL service"
       service:
@@ -141,7 +150,7 @@
         line: "listen_addresses = '*'"
         state: present
       become: true
-      
+
     - name: "Restart PSQL service"
       service:
         name: "postgresql"
