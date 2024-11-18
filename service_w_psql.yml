@@ -106,7 +106,7 @@
       become_user: postgres
       postgresql_user:
         db: postgres
-        users: test_user
+        user: test_user
         password: '1111'
         priv: "CONNECT/count_update:ALL"
         state: present
