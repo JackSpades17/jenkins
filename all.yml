@@ -1,0 +1,26 @@
+---
+- name: Ping Servers
+  hosts: [test_service,service_with_postrges]
+  tasks:
+    - name: Ping servers
+      ping:
+
+- name: GIT
+  hosts: [test_service,service_with_postrges]
+  tasks:
+    - name: "Git clone repo"
+      git:
+        repo: "{{ git_repo }}"
+        dest: "{{ path_service }}"
+        clone: yes
+        update: yes
+
+- name: GIT
+  hosts: [test_service,service_with_postrges]
+  tasks:
+    - name: "Check"
+      shell: 
+        cmd: "ls -thl {{ path_service }}"
+      register: check_command
+    - name: "Debug"
+      debug: var=check_command.stdout_lines

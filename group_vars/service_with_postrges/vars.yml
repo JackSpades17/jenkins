@@ -1,0 +1,3 @@
+name_service: service_with_postgres
+path_service: /home/{{ ansible_user }}/{{ name_service }}
+git_repo: https://github.com/JackSpades17/{{ name_service }}
