@@ -1,0 +1,3 @@
+backup_for_app: /var/lib/jenkins/backup
+backup_for_psql: /var/lib/postgresql/backup
+version: 17

@@ -15,12 +15,20 @@
         clone: yes
         update: yes
 
-- name: GIT
+- name: Steps Install Docker
+  hosts: [test_service,service_with_postrges]
+  roles:
+    - docker
+  
+- name: Steps Install PostgreSQL
+  hosts: [service_with_postrges]
+  roles:
+    - postgresql
+
+- name: Build app
   hosts: [test_service,service_with_postrges]
   tasks:
-    - name: "Check"
+    - name: "Docker Build And Start App"
       shell: 
-        cmd: "ls -thl {{ path_service }}"
-      register: check_command
-    - name: "Debug"
-      debug: var=check_command.stdout_lines
+        cmd: "docker-compose up -d"
+        chdir: "{{ path_service }}"
