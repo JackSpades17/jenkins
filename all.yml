@@ -12,4 +12,6 @@
 
 - name: Deploy And App Service
   hosts: "{{ service }}"
-  include: test_service.yml
+  tasks:
+    - name: Deploy And App "{{ service }}"
+      include: test_service.yml
