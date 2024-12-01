@@ -3,6 +3,7 @@
   hosts: "{{ service }}"
   roles:
     - "{{ service }}"
+  tags: ping
 
 # - name: Ping Servers
 #   hosts: "{{ service }}"
