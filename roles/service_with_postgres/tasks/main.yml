@@ -7,7 +7,7 @@
 
     - name: Git Repo
       roles:
-       - git
+        - git
       tags: [ping, deploy, update_app]
     
     - name: Test message
