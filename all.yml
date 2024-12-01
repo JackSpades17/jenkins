@@ -2,7 +2,7 @@
 - name: Ping Servers
   hosts: "{{ service }}"
   roles:
-    - "{{ service }}"
+    - service_with_postgres
   tags: ping
 
 # - name: Ping Servers
