@@ -1,17 +1,7 @@
 ---
-- name: Ping Servers
-  hosts: "{{ service }}"
-  tasks:
-    - name: Ping servers
-      ping:
-
-- name: Git Repo
-  hosts: "{{ service }}"
-  roles:
-    - git
 
 - name: Deploy And App
   hosts: "{{ service }}"
   tasks:
     - name: Deploy And App Service
-      import_tasks: "{{ service }}.yml"
+      included_tasks: "{{ service }}.yml"

@@ -1,6 +1,17 @@
 ---
+- name: Ping Servers
+  hosts: "{{ service }}"
+  tasks:
+    - name: Ping servers
+      ping:
+
+- name: Git Repo
+  hosts: "{{ service }}"
+  roles:
+    - git
+
 - name: Steps Install Docker
-  #hosts: "{{ service }}"
+  hosts: "{{ service }}"
   roles:
     - docker
   tags: deploy
@@ -13,12 +24,14 @@
         name: docker
         tasks_from: build_app
   tags: deploy
-
-- name: Restart app after deploy
-  hosts: "{{ service }}"
-  tasks:
-    - name: Restart App
-      include_role:
-        name: docker
-        tasks_from: reload_app
-  tags: update_app
+  
+- name: Steps Install Docker
+  block:
+    - name: Restart app after deploy
+      hosts: "{{ service }}"
+      tasks:
+        - name: Restart App
+          include_role:
+            name: docker
+            tasks_from: reload_app
+      tags: update_app
