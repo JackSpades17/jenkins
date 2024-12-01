@@ -1,16 +1,18 @@
 ---
 - name: Service With Postgres Install
-  block:
-    - name: Restart App
-      include_role:
-        name: for_test
-        tasks_from: start
-      tags: [ping, deploy, update_app]
+  roles:
+    - for_test
+  tags: ping
+    # - name: Restart App
+    #   include_role:
+    #     name: for_test
+    #     tasks_from: start
+    #   tags: [ping, deploy, update_app]
     
-    - name: Test message
-      debug:
-        msg: 'Test'
-      tags: ping
+    # - name: Test message
+    #   debug:
+    #     msg: 'Test'
+    #   tags: ping
 
     # - name: Steps Install Docker
     #   roles:
