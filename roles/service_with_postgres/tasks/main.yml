@@ -5,9 +5,9 @@
     #   ping:
     #   tags: [ping, deploy, update_app]
 
-    - name: Git Repo
-      roles:
-        - git
+    #- name: Git Repo
+     # roles:
+     #   - git
       #tags: [ping, deploy, update_app]
     
     - name: Test message
