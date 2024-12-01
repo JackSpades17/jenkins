@@ -18,11 +18,11 @@
     - docker
   tags: deploy
   
-- name: Steps Install PostgreSQL
-  hosts: "{{ service }}"
-  roles:
-    - postgresql
-  tags: deploy
+# - name: Steps Install PostgreSQL
+#   hosts: "{{ service }}"
+#   roles:
+#     - postgresql
+#   tags: deploy
 
 - name: Build app
   hosts: "{{ service }}"
