@@ -9,7 +9,8 @@
   hosts: "{{ service }}"
   roles:
     - git
-
+  tags: update_app
+  
 - name: Steps Install Docker
   hosts: "{{ service }}"
   roles:
