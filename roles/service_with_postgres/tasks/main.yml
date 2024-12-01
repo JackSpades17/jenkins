@@ -8,12 +8,12 @@
     - name: Git Repo
       roles:
         - git
-      tags: [ping, deploy, update_app]
+      #tags: [ping, deploy, update_app]
     
     - name: Test message
       debug:
         msg: 'Test'
-      tags: [deploy, update_app]
+      #tags: [deploy, update_app]
 
     # - name: Steps Install Docker
     #   roles:
