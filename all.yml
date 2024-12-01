@@ -2,7 +2,7 @@
 - name: Test Message
   hosts: "{{ service }}"
   roles:
-    - for_test/start.yml
+    - for_test/tasks/start.yml
   tags: [ping]
 
 - name: Ping Servers
