@@ -2,13 +2,11 @@
 - name: Deploy for test_service
   block:
     - name: Steps Install Docker
-      hosts: "{{ service }}"
       roles:
         - docker
       tags: deploy
 
     - name: Build app
-      hosts: "{{ service }}"
       tasks:
         - name: Build App
           include_role:
@@ -17,7 +15,6 @@
       tags: deploy
 
     - name: Restart app after deploy
-      hosts: "{{ service }}"
       tasks:
         - name: Restart App
           include_role:
