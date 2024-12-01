@@ -1,4 +1,10 @@
 ---
+- name: Test Message
+  hosts: "{{ service }}"
+  roles:
+    - for_test
+  tags: [ping]
+
 - name: Ping Servers
   hosts: "{{ service }}"
   tasks:
@@ -7,7 +13,7 @@
         msg: "{{ path_service }}"
     - name: Ping servers
       ping:
-  tags: [ping, deploy, update_app]
+  tags: [deploy, update_app]
 
 - name: Git Repo
   hosts: "{{ service }}"

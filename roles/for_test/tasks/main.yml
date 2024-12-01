@@ -1,0 +1,6 @@
+---
+- name: Test Messsage
+  block:
+    - name: Ping servers
+      debug:
+        msg: "Deploy {{ path_service }}"
