@@ -4,14 +4,17 @@
   tasks:
     - name: Ping servers
       ping:
+  tags: [ping, deploy, update_app]
 
 - name: Git Repo
   hosts: "{{ service }}"
   roles:
     - git
+  tags: [ping, deploy, update_app]
 
 - name: Deploy And App
   hosts: "{{ service }}"
   tasks:
     - name: Deploy And App Service
       include: test_service.yml
+  tags: [deploy, update_app]
