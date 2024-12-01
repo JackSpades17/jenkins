@@ -1,0 +1,9 @@
+---
+- name: GIT
+  block:
+    - name: "Git clone repo"
+      git:
+        repo: "{{ git_repo }}"
+        dest: "{{ path_service }}"
+        clone: yes
+        update: yes

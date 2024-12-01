@@ -1,29 +1,28 @@
 ---
 - name: Ping Servers
-  hosts: [test_service,service_with_postrges]
+  hosts: "{{ service }}"
   tasks:
     - name: Ping servers
       ping:
+  tags: [ping, deploy, update_app]
 
-- name: GIT
-  hosts: [test_service,service_with_postrges]
-  tasks:
-    - name: "Git clone repo"
-      git:
-        repo: "{{ git_repo }}"
-        dest: "{{ path_service }}"
-        clone: yes
-        update: yes
+- name: Git Repo
+  hosts: "{{ service }}"
+  roles:
+    - git
+  tags: [deploy, update_app]
 
 - name: Steps Install Docker
-  hosts: [test_service,service_with_postrges]
+  hosts: "{{ service }}"
   roles:
     - docker
+  tags: deploy
   
 - name: Steps Install PostgreSQL
-  hosts: [service_with_postrges]
+  hosts: "{{ service }}"
   roles:
     - postgresql
+  tags: deploy
 
 - name: Build app
   hosts: [test_service,service_with_postrges]
@@ -32,3 +31,18 @@
       shell: 
         cmd: "docker-compose up -d"
         chdir: "{{ path_service }}"
+  tags: deploy
+
+- name: Restart app after deploy
+  hosts: "{{ service }}"
+  tasks:
+    - name: "Docker Stop"
+      shell: 
+        cmd: "docker-compose stop"
+        chdir: "{{ path_service }}"
+      ignore_errors: yes
+    - name: "Docker Start"
+      shell: 
+        cmd: "docker-compose start"
+        chdir: "{{ path_service }}"
+  tags: update_app
