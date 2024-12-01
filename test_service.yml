@@ -4,6 +4,7 @@
     - name: Ping servers
       debug:
         msg: "Start {{ service }}"
+      tags: ping
 # - name: Steps Install Docker
 #   hosts: "{{ service }}"
 #   roles:
