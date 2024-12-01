@@ -1,6 +1,6 @@
 ---
 - name: Steps Install Docker
-  hosts: "{{ service }}"
+  #hosts: "{{ service }}"
   roles:
     - docker
   tags: deploy
