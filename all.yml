@@ -1,9 +1,11 @@
 ---
 - name: Test Message
   hosts: "{{ service }}"
-  include_role:
-    name: for_test
-    tasks_from: start
+  tasks:
+    - name: Test Mess
+      include_role:
+        name: for_test
+        tasks_from: start
   tags: [ping]
 
 - name: Ping Servers
