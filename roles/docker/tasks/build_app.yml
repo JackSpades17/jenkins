@@ -1,0 +1,7 @@
+---
+- name: Build App
+  block:
+    - name: "Docker Build And Start App"
+      shell: 
+        cmd: "docker-compose up -d"
+        chdir: "{{ path_service }}"

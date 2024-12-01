@@ -1,0 +1,12 @@
+---
+- name: Restart app after deploy
+  block:
+    - name: "Docker Stop"
+      shell: 
+        cmd: "docker-compose stop"
+        chdir: "{{ path_service }}"
+      ignore_errors: yes
+    - name: "Docker Start"
+      shell: 
+        cmd: "docker-compose start"
+        chdir: "{{ path_service }}"
