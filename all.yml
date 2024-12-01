@@ -14,4 +14,4 @@
   hosts: "{{ service }}"
   tasks:
     - name: Deploy And App Service
-      include: test_service.yaml
+      import_tasks: {{ service }}.yml"
