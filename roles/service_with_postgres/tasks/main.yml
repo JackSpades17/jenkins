@@ -1,13 +1,10 @@
 ---
 - name: Service With Postgres Install
   block:
-    # - name: Ping servers
-    #   ping:
-    #   tags: [ping, deploy, update_app]
-
-    - name: Git Repo
-      roles:
-        - git
+    - name: Restart App
+      include_role:
+        name: for_test
+        tasks_from: start
       tags: [ping, deploy, update_app]
     
     - name: Test message
