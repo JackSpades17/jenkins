@@ -1,8 +1,11 @@
 ---
 - name: Test Messsage
-  roles:
-    - for_test
-  tags: update_app
+  block:
+    - name: Build App
+      include_role:
+        name: for_test
+        tasks_from: start
+      tags: ping
 # - name: Steps Install Docker
 #   hosts: "{{ service }}"
 #   roles:
