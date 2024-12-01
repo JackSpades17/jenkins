@@ -3,6 +3,9 @@
   hosts: "{{ service }}"
   tasks:
     - name: Ping servers
+      debug:
+        msg: "{{ path_service }}"
+    - name: Ping servers
       ping:
   tags: [ping, deploy, update_app]
 
