@@ -1,24 +1,29 @@
 ---
-- name: Steps Install Docker
-  hosts: "{{ service }}"
-  roles:
-    - docker
-  tags: deploy
+- name: Test Messsage
+  block:
+    - name: Ping servers
+      debug:
+        msg: "Start {{ service }}"
+# - name: Steps Install Docker
+#   hosts: "{{ service }}"
+#   roles:
+#     - docker
+#   tags: deploy
 
-- name: Build app
-  hosts: "{{ service }}"
-  tasks:
-    - name: Build App
-      include_role:
-        name: docker
-        tasks_from: build_app
-  tags: deploy
+# - name: Build app
+#   hosts: "{{ service }}"
+#   tasks:
+#     - name: Build App
+#       include_role:
+#         name: docker
+#         tasks_from: build_app
+#   tags: deploy
 
-- name: Restart app after deploy
-  hosts: "{{ service }}"
-  tasks:
-    - name: Restart App
-      include_role:
-        name: docker
-        tasks_from: reload_app
-  tags: update_app
+# - name: Restart app after deploy
+#   hosts: "{{ service }}"
+#   tasks:
+#     - name: Restart App
+#       include_role:
+#         name: docker
+#         tasks_from: reload_app
+#   tags: update_app
