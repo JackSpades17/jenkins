@@ -10,8 +10,8 @@
   roles:
     - git
 
-- name: Deploy And App Service
+- name: Deploy And App
   hosts: "{{ service }}"
   tasks:
-    - name: Deploy And App {{ service }}
+    - name: Deploy And App Service
       include: test_service.yml
