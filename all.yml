@@ -12,5 +12,4 @@
 
 - name: Deploy And App Service
   hosts: "{{ service }}"
-  include:
-    - "{{ service }}.yml"
+  include: "{{ service }}.yml"
