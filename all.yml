@@ -2,7 +2,7 @@
 - name: Ping Servers
   hosts: "{{ service }}"
   roles:
-    - service_with_postgres
+    - "{{ service }}"
 
 # - name: Ping Servers
 #   hosts: "{{ service }}"
