@@ -1,11 +1,9 @@
 ---
 - name: Service With Postgres Install
   block:
-    - name: Ping Servers
-      tasks:
-        - name: Ping servers
-          ping:
-      tags: [ping, deploy, update_app]
+    # - name: Ping servers
+    #   ping:
+    #   tags: [ping, deploy, update_app]
 
     - name: Git Repo
       roles:
