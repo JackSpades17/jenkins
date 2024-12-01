@@ -1,4 +1,14 @@
 ---
+- name: Ping Servers
+  hosts: "{{ service }}"
+  tasks:
+    - name: Ping servers
+      ping:
+
+- name: Git Repo
+  hosts: "{{ service }}"
+  roles:
+    - git
 
 - name: Deploy And App
   hosts: "{{ service }}"

@@ -4,13 +4,14 @@
   tasks:
     - name: Ping servers
       ping:
+  tags: [ping, deploy, update_app]
 
 - name: Git Repo
   hosts: "{{ service }}"
   roles:
     - git
-  tags: update_app
-  
+  tags: [deploy, update_app]
+
 - name: Steps Install Docker
   hosts: "{{ service }}"
   roles:
