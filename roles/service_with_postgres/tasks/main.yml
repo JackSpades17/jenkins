@@ -13,7 +13,7 @@
     - name: Test message
       debug:
         msg: 'Test'
-      #tags: [deploy, update_app]
+      tags: ping
 
     # - name: Steps Install Docker
     #   roles:
