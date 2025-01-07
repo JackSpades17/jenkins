@@ -56,6 +56,15 @@
         state: restore
         target:  /var/lib/postgresql/backup
     
+    - name: "PSQL Up DB"
+      become_user: postgres
+      postgresql_user:
+        db: postgres
+        name: "{{ user_pg }}"
+        password: "{{ password_pg }}"
+        priv: "CONNECT/public.count_update:ALL"
+        expires: "Jan 31 2026"
+    
     - name: "Grant User For Backup"
       postgresql_pg_hba:
         dest: /etc/postgresql/17/main/pg_hba.conf
