@@ -1,22 +1,22 @@
 ---
-- name: Ping Servers
-  hosts: "{{ service }}"
-  tasks:
-    - name: Ping servers
-      ping:
-  tags: [ping, deploy, update_app]
+# - name: Ping Servers
+#   hosts: "{{ service }}"
+#   tasks:
+#     - name: Ping servers
+#       ping:
+#   tags: [ping, deploy, update_app]
 
-- name: Git Repo
-  hosts: "{{ service }}"
-  roles:
-    - git
-  tags: [deploy, update_app]
+# - name: Git Repo
+#   hosts: "{{ service }}"
+#   roles:
+#     - git
+#   tags: [deploy, update_app]
   
-- name: Steps Install Docker
-  hosts: "{{ service }}"
-  roles:
-    - docker
-  tags: deploy
+# - name: Steps Install Docker
+#   hosts: "{{ service }}"
+#   roles:
+#     - docker
+#   tags: deploy
   
 - name: Steps Install PostgreSQL
   hosts: "{{ service }}"
@@ -24,20 +24,20 @@
     - postgresql
   tags: deploy
 
-- name: Build app
-  hosts: "{{ service }}"
-  tasks:
-    - name: Build App
-      include_role:
-        name: docker
-        tasks_from: build_app
-  tags: deploy
+# - name: Build app
+#   hosts: "{{ service }}"
+#   tasks:
+#     - name: Build App
+#       include_role:
+#         name: docker
+#         tasks_from: build_app
+#   tags: deploy
 
-- name: Restart app after deploy
-  hosts: "{{ service }}"
-  tasks:
-    - name: Restart App
-      include_role:
-        name: docker
-        tasks_from: reload_app
-  tags: update_app
+# - name: Restart app after deploy
+#   hosts: "{{ service }}"
+#   tasks:
+#     - name: Restart App
+#       include_role:
+#         name: docker
+#         tasks_from: reload_app
+#   tags: update_app
