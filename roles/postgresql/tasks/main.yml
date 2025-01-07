@@ -57,7 +57,7 @@
     #     target:  /var/lib/postgresql/backup
 
     - name: psycopg2 is installed
-      pip:
+      pip3:
         name: psycopg2
         state: present
 
