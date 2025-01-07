@@ -56,21 +56,26 @@
     #     state: restore
     #     target:  /var/lib/postgresql/backup
 
-    - name: "PSQL Up DB"
-      become_user: postgres
-      postgresql_user:
-        db: postgres
-        name: "{{ user_pg }}"
-        password: "{{ password_pg }}"
-    
+    - name: psycopg2 is installed
+      pip:
+        name: psycopg2
+        state: present
+
     # - name: "PSQL Up DB"
     #   become_user: postgres
     #   postgresql_user:
     #     db: postgres
     #     name: "{{ user_pg }}"
     #     password: "{{ password_pg }}"
-    #     priv: "CONNECT/public.count_update:ALL"
-    #     expires: "Jan 31 2026"
+    
+    - name: "PSQL Up DB"
+      become_user: postgres
+      postgresql_user:
+        db: postgres
+        name: "{{ user_pg }}"
+        password: "{{ password_pg }}"
+        priv: "CONNECT/public.count_update:ALL"
+        expires: "Jan 31 2026"
     
     # - name: "Grant User For Backup"
     #   postgresql_pg_hba:
