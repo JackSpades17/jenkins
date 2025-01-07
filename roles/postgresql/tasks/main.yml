@@ -55,9 +55,15 @@
     #     name: postgres
     #     state: restore
     #     target:  /var/lib/postgresql/backup
-
+    - name: "Check/Install Postgresql"
+      apt: 
+        name: "python3-pip"
+        state: present
+        update_cache: true
+      become: true
+      
     - name: psycopg2 is installed
-      pip3:
+      pip:
         name: psycopg2
         state: present
 
