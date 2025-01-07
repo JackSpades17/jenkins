@@ -1,0 +1,15 @@
+---
+- name: Ping Servers
+  hosts: local
+  tasks:
+    - name: Ping servers
+      ping:
+
+    - name: Echo
+      shell: "echo {{ pass }}"
+      register: check
+    
+    - name: Debug
+      debug:
+        msg: "{{ check }}"
+  tags: ping
