@@ -1,6 +1,6 @@
 ---
 - name: Ping Servers
-  # hosts: local
+  hosts: localhost
   vars:
     user: test_user
     password: !vault |
