@@ -61,9 +61,9 @@
         state: present
         update_cache: true
       become: true
-      
+
     - name: psycopg2 is installed
-      pip:
+      pip3:
         name: psycopg2
         state: present
 
