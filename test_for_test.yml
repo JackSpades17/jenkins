@@ -9,24 +9,24 @@
     shell: "echo 1111"
     register: check
 
-  - name: SSH check
-    shell: "echo ssh"
-    notify: Restart SSH
+  # - name: SSH check
+  #   shell: "echo ssh"
+  #   notify: Restart SSH
 
   - name: Debug
-    debug: msg={{ check }}
+    debug: var=check
 
   - name: Echo
     shell: "echo 2222"
     register: check
 
-  - name: SSH check
-    shell: "echo ssh"
-    notify: Restart SSH
+  # - name: SSH check
+  #   shell: "echo ssh"
+  #   notify: Restart SSH
 
   tags: ping
 
-  handlers:
-  - name: Restart SSH
-    service: name=sshd state=restarted
-    become: yes
+  # handlers:
+  # - name: Restart SSH
+  #   service: name=sshd state=restarted
+  #   become: yes
