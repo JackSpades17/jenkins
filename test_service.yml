@@ -9,10 +9,9 @@
 
   - name: Git serRepovers
     block:
-        - name: Git Repo
-          roles: 
-            - { role: git }
-          tags: [deploy, update_app]
+        roles: 
+          - { role: git }
+        tags: [deploy, update_app]
   # - name: Git Repo
   #   roles:
   #     - git
