@@ -9,7 +9,8 @@
 
   - block:
       - name: Git Repo
-        role: git
+        roles: 
+          - { role: git }
         tags: [deploy, update_app]
   # - name: Git Repo
   #   roles:
