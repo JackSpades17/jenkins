@@ -1,13 +1,23 @@
 ---
 - name: Ping Servers
-  hosts: test
+  hosts: localhost
   tasks:
+
   - name: Ping servers
     ping:
+
+  - name: check Linux
+    shell: "echo {{ ansible_lsb.id }}"
+    register: check2
+
+  - name: 
+    shell: "echo {{ ansible_os_family }}"
+    register: check1
 
   - name: Echo
     shell: "echo 1111"
     register: check
+    when: ansible_os_family == "Debian"
 
   # - name: SSH check
   #   shell: "echo ssh"
