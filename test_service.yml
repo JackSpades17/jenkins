@@ -6,6 +6,10 @@
   - name: Ping servers
     ping:
     tags: [ping, deploy, update_app]
+  
+  - name: shell
+    shell: echo 1111
+    tags: [ping, deploy, update_app]
 
   roles: 
     - { role: git, tags: [deploy, update_app] }
