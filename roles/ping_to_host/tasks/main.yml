@@ -1,0 +1,5 @@
+---
+- name: Ping Servers
+  block:
+    - name: "ping to host"
+      ping:
