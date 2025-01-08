@@ -2,14 +2,14 @@
 - name: Ping Servers
   hosts: test
   tasks:
-    - name: Ping servers
-      ping:
+  - name: Ping servers
+    ping:
 
-    - name: Echo
-      shell: "echo 1111"
-      register: check
-    
-    - name: Debug
-      debug:
-        msg: "{{ check }}"
+  - name: Echo
+    shell: "echo 1111"
+    register: check
+  
+  - name: Debug
+    debug: msg={{ check }}
+      
   tags: ping
