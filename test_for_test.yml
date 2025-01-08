@@ -8,8 +8,16 @@
   - name: Echo
     shell: "echo 1111"
     register: check
-  
+
+  - name: SSH check
+    shell: "echo ssh"
+    notify: Restart SSH
+
   - name: Debug
     debug: msg={{ check }}
-      
+
   tags: ping
+
+  handlers:
+  - name: Restart SSH
+    service: name=sshd state=restarted
