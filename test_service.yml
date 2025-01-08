@@ -6,11 +6,15 @@
   - name: Ping servers
     ping:
     tags: [ping, deploy, update_app]
-    
-  - name: Git Repo
-    roles:
-      - git
-    tags: [deploy, update_app]
+
+  - block:
+      - name: Git Repo
+        shell: echo 1111
+        tags: [deploy, update_app]
+  # - name: Git Repo
+  #   roles:
+  #     - git
+  #   tags: [deploy, update_app]
 
 # - name: Steps Install Docker
 #   hosts: "{{ service }}"
