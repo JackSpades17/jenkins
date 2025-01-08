@@ -7,11 +7,12 @@
     ping:
     tags: [ping, deploy, update_app]
 
-  - block:
-      - name: Git Repo
-        roles: 
-          - { role: git }
-        tags: [deploy, update_app]
+  - name: Git serRepovers
+    block:
+        - name: Git Repo
+          roles: 
+            - { role: git }
+          tags: [deploy, update_app]
   # - name: Git Repo
   #   roles:
   #     - git
