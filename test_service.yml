@@ -9,7 +9,7 @@
 
   - block:
       - name: Git Repo
-        shell: echo 1111
+        role: git
         tags: [deploy, update_app]
   # - name: Git Repo
   #   roles:
