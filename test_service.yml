@@ -13,7 +13,7 @@
       include_role:
         name: docker
         tasks_from: build_app
-      tags: deploy
+  tags: deploy
     
     # - name: Restart App
     #   include_role:
