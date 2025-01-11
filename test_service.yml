@@ -20,3 +20,4 @@
         name: docker
         tasks_from: reload_app
       when: "'update_app' in ansible_run_tags"
+  tags: [deploy, update_app]
