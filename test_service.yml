@@ -1,12 +1,12 @@
 ---
-- name: Ping Servers
+- name: PreDeploy For App
   hosts: "{{ service }}"
   roles:
     - { role: ping_to_host, tags: [ping, deploy, update_app] }
-    # - { role: git, tags: [deploy, update_app] }
-    # - { role: docker, tags: [deploy] }
+    - { role: git, tags: [deploy, update_app] }
+    - { role: docker, tags: [deploy] }
 
-- name: Deploy app
+- name: Deploy App
   hosts: "{{ service }}"
   tasks:
     - name: Build App
