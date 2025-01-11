@@ -2,18 +2,18 @@
 - name: Ping Servers
   hosts: "{{ service }}"
   roles:
-    - { role: ping_to_host, tags: [ping, deploy, update_app] }
-    - { role: git, tags: [deploy, update_app] }
-    - { role: docker, tags: [deploy] }
+    # - { role: ping_to_host, tags: [ping, deploy, update_app] }
+    # - { role: git, tags: [deploy, update_app] }
+    - { role: docker/reload_app, tags: [deploy] }
 
-- name: Deploy app
-  hosts: "{{ service }}"
-  tasks:
-    - name: Build App
-      include_role:
-        name: docker
-        tasks_from: build_app
-  tags: deploy
+# - name: Deploy app
+#   hosts: "{{ service }}"
+#   tasks:
+#     - name: Build App
+#       include_role:
+#         name: docker
+#         tasks_from: build_app
+#   tags: deploy
     
     # - name: Restart App
     #   include_role:
